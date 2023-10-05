@@ -1,15 +1,25 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Magasin {
     private final int identifiant;
     private final String adresse;
+    private final String nom;
+
     private final int capacityMax;
+    private List<Employe> employes; // Make sure this list is of type Employe
+    private final int capacite;
     private ArrayList<Produit> produits = new ArrayList<>();
 
-    public Magasin(int identifiant, String adresse, int capacityMax) {
+    public Magasin(int identifiant, String adresse, String nom, int capacityMax) {
         this.identifiant = identifiant;
         this.adresse = adresse;
+        this.nom = nom;
         this.capacityMax = capacityMax;
+        this.capacite = 20; // Capacité maximale par défaut
+
+        this.produits = new ArrayList<>();
+        this.employes = new ArrayList<>();
     }
 
     public void ajouterProduit(Produit produit) {
@@ -72,7 +82,23 @@ public class Magasin {
     }
 
 
+    // Méthode pour ajouter un employé
+    public void ajouterEmploye(Employe employe) {
+        if (employes.size() < capacite) {
+            employes.add(employe);
+        } else {
+            System.out.println("Capacité maximale d'employés atteinte pour ce magasin.");
+        }
+    }
 
+    public void calculerEtAfficherSalaires() {
+        String nom = null;
+        System.out.println("Salaires des employés du magasin " + nom + ":");
+        for (Employe employe : employes) {
+            double salaire = employe.calculerSalaire();
+            System.out.println(employe.getNom() + ": " + salaire + " DT");
+        }
+    }
 
 
 }
