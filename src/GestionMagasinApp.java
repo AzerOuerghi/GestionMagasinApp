@@ -1,5 +1,5 @@
 public class GestionMagasinApp {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Magasin.MagasinPleinException, Magasin.PrixNegatifException {
         // Create some Magasin objects
         Magasin magasin1 = new Magasin(1, "Carrefour", "Centre-Ville", 50);
         Magasin magasin2 = new Magasin(2, "Monoprix", "Menzah 6", 50);

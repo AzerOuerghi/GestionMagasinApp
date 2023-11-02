@@ -21,17 +21,17 @@ public class Magasin {
         this.employes = new ArrayList<>();
     }
 
-    public void ajouterProduit(Produit produit) {
-        boolean produitExiste = chercherProduit(this, produit);
-
-        if (!produitExiste && produits.size() < capacityMax) {
+    public void ajouterProduit(Produit produit) throws MagasinPleinException, PrixNegatifException {
+        if (produits.size() < capacityMax) {
+            if (produit.getPrix() < 0) {
+                throw new PrixNegatifException();
+            }
             produits.add(produit);
-        } else if (produitExiste) {
-            System.out.println("Le produit existe déjà dans le magasin.");
         } else {
-            System.out.println("Capacité maximale atteinte, impossible d'ajouter plus de produits.");
+            throw new MagasinPleinException();
         }
     }
+
 
     public void afficherCaracteristiques() {
         System.out.println("Magasin ID: " + identifiant);
@@ -134,5 +134,16 @@ public class Magasin {
             System.out.println(employe.getNom() + ": " + salaire + " DT");
         }
     }
+    public static class MagasinPleinException extends Exception {
+        public MagasinPleinException() {
+            super("Le magasin est plein. Impossible d'ajouter plus de produits.");
+        }
+    }
+    public static class PrixNegatifException extends Exception {
+        public PrixNegatifException() {
+            super("Le prix du produit ne peut pas être négatif.");
+        }
+    }
+
 
 }
